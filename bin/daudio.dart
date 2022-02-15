@@ -10,19 +10,16 @@ const outputFile = 'output-file';
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption(inputFile, abbr: 'i')
-    ..addOption(startSecond, abbr: 's')
     ..addOption(endSecond, abbr: 't')
     ..addOption(outputFile, abbr: 'o');
 
   ArgResults argResults = parser.parse(arguments);
 
   final inputFilteArg = argResults[inputFile];
-  final startSecondArg = argResults[startSecond];
   final endSecondArg = argResults[endSecond];
   final outputFileArg = argResults[outputFile];
 
-  daudio.run(
-    startSecondArg: startSecondArg,
+  await daudio.run(
     inputFilteArg: inputFilteArg,
     endSecondArg: endSecondArg,
     outputFileArg: outputFileArg,
