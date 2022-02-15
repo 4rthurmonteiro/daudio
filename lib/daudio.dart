@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:csv/csv.dart';
 
 Future<void> run({
-  // required String startSecondArg,
   required String inputFilteArg,
   required String endSecondArg,
   required String outputFileArg,
@@ -56,13 +55,10 @@ Future<void> run({
     listOfLists,
   );
 
-  // final directory = await getApplicationDocumentsDirectory();
-// final pathOfTheFileToWrite = directory.path + "/myCsvFile.csv";
   File file = File('metadata.csv');
   await file.writeAsString(csv);
 }
 
-// ffprobe -i ZOOM0017.WAV -show_entries format=duration -v quiet -of csv="p=0"
 Future<int> fileDuration({
   required String inputFilteArg,
 }) async {
