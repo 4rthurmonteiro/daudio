@@ -6,7 +6,7 @@ const startSecond = 'start-second';
 const endSecond = 'end-second';
 const outputFile = 'output-file';
 
-// Example: daudio.exe -s 0 -i sample.wav -t 2 -o outpub.wav
+// Example: daudio.exe -i sample.wav -o outpub.wav
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption(inputFile, abbr: 'i')

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:csv/csv.dart';
+import 'package:path/path.dart';
 
 Future<void> run({
   required String inputFilteArg,
@@ -24,25 +25,47 @@ Future<void> run({
   print('Times: $times');
 
   final listOfLists = <List<String>>[
-    ['id', 'filename']
+    [
+      'id',
+      'filename',
+      'classification',
+    ]
   ];
 
+  final baseFilename = basename(outputFileArg);
+  final baseDirname = dirname(outputFileArg);
+
   for (int i = 0; i < times; i++) {
+    final startSecond = (i * step).toString();
+    final endSecond = (i * step + step).toString();
+
+    print('Start Second: $startSecond');
+    print('End Second: $endSecond');
+
+    final filename = '$i$baseFilename';
+
     await Process.run('ffmpeg', [
       '-y',
       '-ss',
-      (i * times).toString(),
+      startSecond,
       '-i',
       inputFilteArg,
       '-t',
-      (i * times + step).toString(),
-      '$i$outputFileArg',
+      step.toString(),
+      '$baseDirname/$filename',
     ]).then((result) {
-      stdout.write(result.stdout);
-      stderr.write(result.stderr);
-      listOfLists.add([i.toString(), '$i$outputFileArg']);
+      // stdout.write(result.stdout);
+      // stderr.write(result.stderr);
+      listOfLists.add(
+        [
+          i.toString(),
+          filename,
+          '',
+        ],
+      );
     });
   }
+  // /Users/arthurmonteiroalvesmelo/Downloads/ZOOM0017.WAV
 
   await Process.run('touch', [
     'metadata.csv',
