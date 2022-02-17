@@ -33,6 +33,8 @@ Future<void> run({
   ];
 
   final baseFilename = basename(outputFileArg);
+  final baseFilenameWithoutExtension = basenameWithoutExtension(outputFileArg);
+
   final baseDirname = dirname(outputFileArg);
 
   for (int i = 0; i < times; i++) {
@@ -78,7 +80,7 @@ Future<void> run({
     listOfLists,
   );
 
-  File file = File('metadata.csv');
+  File file = File('metadata_$baseFilenameWithoutExtension.csv');
   await file.writeAsString(csv);
 }
 
